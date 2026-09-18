@@ -89,7 +89,6 @@ K.FocusLost:Connect(function() local N=tonumber(K.Text) if N then l=math.clamp(N
 L.FocusLost:Connect(function() local N=tonumber(L.Text) if N then m=math.clamp(N,0,100) else L.Text=tostring(m) end end)
 M.FocusLost:Connect(function() local N=tonumber(M.Text) if N then n=math.clamp(N,0,180) else M.Text=tostring(n) end end)
 
--- Nút Bật/Tắt Riêng Biệt
 local function O(B,P,D,callback)
     local R=Instance.new("TextButton")
     R.Size=UDim2.new(1,0,0,24)
@@ -112,16 +111,10 @@ local function O(B,P,D,callback)
     return R
 end
 
--- 1. Nút Supa Tech riêng
 O("Supa Tech", f, 5, function(val) f = val end)
-
--- 2. Nút Client Aim riêng (Chỉ xoay cơ thể)
 O("Client Aim", i, 6, function(val) i = val end)
-
--- 3. Nút Headless/Korblox riêng
 O("Head/Korbl", h, 7, function(val) h = val end)
 
--- Test Pillar Button
 local V=Instance.new("TextButton")
 V.Size=UDim2.new(1,0,0,24)
 V.BackgroundColor3=Color3.fromRGB(150,50,200)
@@ -270,7 +263,7 @@ c.RenderStepped:Connect(function()
     end
 end)
 
--- CLIENT AIM (BODY ONLY, INDEPENDENT TOGGLE) --
+-- FAST CLIENT AIM (INSTANT SNAP, BODY ONLY) --
 c.RenderStepped:Connect(function()
     if not i or not e.Character then return end
     local X=e.Character:FindFirstChild("HumanoidRootPart")or e.Character:FindFirstChild("Torso")
@@ -290,8 +283,7 @@ c.RenderStepped:Connect(function()
         end 
     end
     if ae then 
-        local targetCFrame = CFrame.lookAt(X.Position, Vector3.new(ae.Position.X, X.Position.Y, ae.Position.Z))
-        X.CFrame = X.CFrame:Lerp(targetCFrame, 0.3)
+        X.CFrame = CFrame.lookAt(X.Position, Vector3.new(ae.Position.X, X.Position.Y, ae.Position.Z))
     end 
 end)
 
